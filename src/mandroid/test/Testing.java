@@ -25,8 +25,8 @@ public class Testing {
 
             ConfigurationManager cm = new ConfigurationManager(url);
 
-	    Recognizer recognizer = (Recognizer) cm.lookup("recognizer");
-	    Microphone microphone = (Microphone) cm.lookup("microphone");
+            Recognizer recognizer = (Recognizer) cm.lookup("recognizer");
+            Microphone microphone = (Microphone) cm.lookup("microphone");
 
 
 
