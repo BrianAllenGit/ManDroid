@@ -7,18 +7,47 @@ import edu.cmu.sphinx.util.props.ConfigurationManager;
 import edu.cmu.sphinx.util.props.PropertyException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+
+import javazoom.jl.decoder.JavaLayerException;
+
+import com.gtranslate.Audio;
+import com.gtranslate.Language;
 
 
 public class Testing {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JavaLayerException, IOException, InterruptedException {
+        Audio audio = Audio.getInstance();     
+        FileInputStream input = new FileInputStream("resources/myfile.mp3");    
+        PausablePlayer player = new PausablePlayer(input);
+    	try{
+        // start playing
+        player.play();
+
+    	InputStream sound  = audio.getAudio("Hello and welcome to mandroid. I'll be your guide", Language.ENGLISH);
+    	audio.play(sound);
+        // after 5 secs, pause
+        Thread.sleep(3000);
+    //    player.pause();     
+    } catch (final Exception e) {
+        throw new RuntimeException(e);
+    }
+    	
         try {
             URL url;
             if (args.length > 0) {
                 url = new File(args[0]).toURI().toURL();
             } else {
                 url = Testing.class.getResource("helloworld.config.xml");
+            }
+            try{
+                InputStream sound  = audio.getAudio("Currently Loading", Language.ENGLISH);
+            	audio.play(sound);
+            }catch (final Exception e) {
+            	throw new RuntimeException(e);
             }
 
             System.out.println("Loading...");
@@ -34,17 +63,26 @@ public class Testing {
 
 
 	    if (microphone.startRecording()) {
-
-		System.out.println
-		    ("Say: (Good morning | Hello) " +
-                     "( Brian )");
+            try{
+                InputStream sound  = audio.getAudio("Loaded. Start saying chit.", Language.ENGLISH);
+            	audio.play(sound);
+            }catch (final Exception e) {
+            	throw new RuntimeException(e);
+            }
+		System.out.println("Say: (Good morning | Hello) " + "( Brian )");
 
 		while (true) {
+	    	player.pause();
 		    System.out.println
 			("Start speaking. Press Ctrl-C to quit.\n");
 
 
 		    Result result = recognizer.recognize();
+		    player.resume();
+		    Thread.sleep(3000);
+		    result.getActiveTokens();
+		    result.getBestFinalToken();
+		    result.getReferenceText();
 		    
 		    if (result != null) {
 			String resultText = result.getBestFinalResultNoFiller();
