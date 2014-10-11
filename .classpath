@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="resources/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
 	<classpathentry kind="lib" path="resources/gtranslateapi-1.0.jar"/>
 	<classpathentry kind="lib" path="resources/jl1.0.jar"/>
+	<classpathentry kind="lib" path="resources/mp3plugin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

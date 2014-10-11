@@ -28,35 +28,21 @@ import com.gtranslate.Language;
 public class Testing {
     @SuppressWarnings("unused")
 	public static void main(String[] args) throws JavaLayerException, IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
-//	     try{
-//	         FileInputStream f = new FileInputStream("resources/mysong.wav");
-//	         Clip clip = AudioSystem.getClip();
-//	         AudioInputStream ais = AudioSystem.getAudioInputStream(f);
-//	         clip.open(ais);
-//
-//	         clip.loop(Clip.LOOP_CONTINUOUSLY);
-//
-//	     }catch(Exception exception){System.out.println("Failed To Play The WAV File!");}
-//    	
-    	 FileInputStream input1 = new FileInputStream("resources/mysong.wav");  
-    	 InputStream bufferedIn = new BufferedInputStream(input1);
-    	 MediaPlayer media = new MediaPlayer(bufferedIn);
+    	 File input1 = new File("resources/myfile.mp3");  
+    	 MediaPlayer media = new MediaPlayer(input1);
     	 media.playSong();
     	
-    	Thread.sleep(600);
+    	Thread.sleep(3000);
     	media.pauseSong();
-    	Audio audio = Audio.getInstance();     
-     //   FileInputStream input = new FileInputStream("resources/myfile.mp3");    
-     //   PausablePlayer player = new PausablePlayer(input);
+    	Thread.sleep(500);
+    	media.playSong();
+    	Audio audio = Audio.getInstance(); 
+    	
     	try{
-        // start playing
-     //   player.play();
-
+    		
     	InputStream sound  = audio.getAudio("do i work yet", Language.ENGLISH);
     	audio.play(sound);
-        // after 5 secs, pause
-        Thread.sleep(200);
-    //    player.pause();     
+        Thread.sleep(200);  
     } catch (final Exception e) {
         throw new RuntimeException(e);
     }
@@ -97,14 +83,12 @@ public class Testing {
 		System.out.println("Say: (Good morning | Hello) " + "( Brian )");
 
 		while (true) {
-	//    	player.pause();
 	    	media.playSong();
 		    System.out.println
 			("Start speaking. Press Ctrl-C to quit.\n");
 
 
 		    Result result = recognizer.recognize();
-	//	    player.resume();
 		    Thread.sleep(3000);
 		    result.getActiveTokens();
 		    result.getBestFinalToken();
